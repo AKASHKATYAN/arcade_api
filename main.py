@@ -12,6 +12,13 @@ app=FastAPI()
 def home_page():
    return {'message':'Welcome to RFID API'}
 
+@app.get("/health")
+def health_check():
+    return {
+        "status": "ok"
+    }
+
+
 #Creating new card
 @app.post("/create")
 def create(card: Cards):
@@ -33,6 +40,15 @@ def create(card: Cards):
         "message": "Card created successfully",
         "card": card
     }
+@app.post("/punch")
+def punch_card(card_id: str)->dict:
+  cards=load_data()
+  for c in cards:
+    if c["card_id"] == card_id:
+        return {"message": "Card accepted"}
+
+  return {"error": "Invalid card"}
+
 
 #Viwing a existing card    
 @app.get("/view_cards/{card_id}")
