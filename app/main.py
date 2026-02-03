@@ -60,6 +60,9 @@ def root():
     return {"message": "API is online and secure. Please login at /docs to get started."}
 
 # --- HEALTH CHECK FOR UPTIMEROBOT ---
-@app.get("/health", tags=["General"])
-def health():
+from fastapi import Response
+
+@app.api_route("/health", methods=["GET", "HEAD"], tags=["General"])
+def health(response: Response):
     return {"status": "ok"}
+
