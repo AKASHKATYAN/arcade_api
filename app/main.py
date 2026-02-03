@@ -58,3 +58,8 @@ def login_for_access_token(
 @app.get("/", tags=["General"])
 def root():
     return {"message": "API is online and secure. Please login at /docs to get started."}
+
+# --- HEALTH CHECK FOR UPTIMEROBOT ---
+@app.get("/health", tags=["General"])
+def health():
+    return {"status": "ok"}
