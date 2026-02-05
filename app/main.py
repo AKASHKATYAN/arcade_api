@@ -58,3 +58,11 @@ def login_for_access_token(
 @app.get("/", tags=["General"])
 def root():
     return {"message": "API is online and secure. Please login at /docs to get started."}
+
+# --- HEALTH CHECK FOR UPTIMEROBOT ---
+from fastapi import Response
+
+@app.api_route("/health", methods=["GET", "HEAD"], tags=["General"])
+def health(response: Response):
+    return {"status": "ok"}
+
