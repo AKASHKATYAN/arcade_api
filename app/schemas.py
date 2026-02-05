@@ -4,7 +4,7 @@ from datetime import datetime
 
 # --- CARD SCHEMAS ---
 class CardBase(BaseModel):
-    card_id: str = Field(..., min_length=10, max_length=10)
+    card_id: str = Field(..., min_length=8, max_length=8)
     owner_name: str
     contact_no: str = Field(..., min_length=10, max_length=10)
 

@@ -33,7 +33,7 @@ class Machine(Base):
 
 class Card(Base):
     __tablename__ = "cards"
-    card_id = Column(String(10), primary_key=True, index=True)
+    card_id = Column(String, primary_key=True, index=True)
     owner_name = Column(String)
     contact_no = Column(String(10))
     balance = Column(Float, default=0.0)

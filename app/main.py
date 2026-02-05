@@ -54,25 +54,3 @@ def login_for_access_token(
     
     return {"access_token": access_token, "token_type": "bearer"}
 
-@app.get("/setup-admin-securely")
-def setup_admin(db: Session = Depends(get_db)):
-    # 1. Create Arcade if missing
-    arcade = db.query(models.Arcade).filter(models.Arcade.id == "MAIN-01").first()
-    if not arcade:
-        arcade = models.Arcade(id="MAIN-01", name="Main Arcade", location="Global")
-        db.add(arcade)
-    
-    # 2. Create User with API-generated hash
-    existing_user = db.query(models.User).filter(models.User.username == "boss_admin").first()
-    if existing_user:
-        db.delete(existing_user) # Wipe the old "401" user
-    
-    new_user = models.User(
-        username="boss_admin",
-        hashed_password=security.get_password_hash("admin123"), # This uses YOUR code's logic
-        role="administrator",
-        arcade_id="MAIN-01"
-    )
-    db.add(new_user)
-    db.commit()
-    return {"message": "Admin 'boss_admin' created with correct hash version!"}
