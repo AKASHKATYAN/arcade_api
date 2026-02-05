@@ -54,3 +54,10 @@ def login_for_access_token(
     
     return {"access_token": access_token, "token_type": "bearer"}
 
+from fastapi import Response
+
+@app.api_route("/health", methods=["GET", "HEAD"])
+def health(response: Response):
+    return {"status": "ok"}
+
+
